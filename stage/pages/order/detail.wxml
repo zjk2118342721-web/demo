@@ -1,0 +1,99 @@
+<view class="page">
+  <scroll-view class="content" scroll-y>
+    <view class="status-hero {{statusClass}}">
+      <view class="status-title">{{statusText}}</view>
+      <view class="status-desc">{{statusDesc}}</view>
+    </view>
+
+    <view wx:if="{{order.status != 5}}" class="card flow-card">
+      <view class="steps">
+        <view wx:for="{{steps}}" wx:key="label" class="step {{item.done ? 'done' : ''}}">
+          <view class="step-dot">{{item.done ? '✓' : item.index + 1}}</view>
+          <view class="step-label">{{item.label}}</view>
+          <view wx:if="{{item.index < steps.length - 1}}" class="step-line {{item.done ? 'done' : ''}}"></view>
+        </view>
+      </view>
+    </view>
+
+    <view class="card">
+      <view class="card-head">
+        <text class="card-title">菜品清单</text>
+        <text class="card-sub">共 {{totalQty}} 件</text>
+      </view>
+
+      <view wx:for="{{items}}" wx:key="id" class="dish-row">
+        <image class="dish-img" src="{{item.img}}" mode="aspectFill"></image>
+        <view class="dish-info">
+          <view class="dish-name">{{item.dishName}}</view>
+          <view class="dish-price">¥{{item.priceText}} × {{item.quantity}}</view>
+        </view>
+        <text class="dish-sub">¥{{item.subtotal}}</text>
+      </view>
+
+      <view class="total-row">
+        <text class="total-label">订单合计</text>
+        <view class="total-value"><text class="yuan">¥</text>{{order.totalText}}</view>
+      </view>
+    </view>
+
+    <view class="card">
+      <view class="card-head">
+        <text class="card-title">订单信息</text>
+      </view>
+      <view class="info-row">
+        <text class="info-label">订单编号</text>
+        <text class="info-value">{{order.orderNo}}</text>
+      </view>
+      <view class="info-row">
+        <text class="info-label">就餐桌号</text>
+        <text class="info-value">{{order.tableNo || '未选桌'}}</text>
+      </view>
+      <view class="info-row">
+        <text class="info-label">下单时间</text>
+        <text class="info-value">{{createText}}</text>
+      </view>
+      <view wx:if="{{payText}}" class="info-row">
+        <text class="info-label">支付时间</text>
+        <text class="info-value">{{payText}}</text>
+      </view>
+      <view wx:if="{{completeText}}" class="info-row">
+        <text class="info-label">完成时间</text>
+        <text class="info-value">{{completeText}}</text>
+      </view>
+      <view class="info-row">
+        <text class="info-label">备注</text>
+        <text class="info-value">{{order.remark || '无'}}</text>
+      </view>
+    </view>
+
+    <view wx:if="{{order.reviewed}}" class="card">
+      <view class="card-head">
+        <text class="card-title">我的评价</text>
+        <text class="review-stars">{{reviewStars}}</text>
+      </view>
+      <view class="review-content">{{order.reviewContent || '未填写评价内容'}}</view>
+      <view class="review-link" bindtap="goReviewList">查看我的全部评价 ›</view>
+    </view>
+
+    <view class="bottom-gap"></view>
+  </scroll-view>
+
+  <view class="action-bar safe-bottom">
+    <block wx:if="{{order.status == 0}}">
+      <view class="btn ghost" bindtap="cancelOrder">取消订单</view>
+      <view class="btn primary" bindtap="payOrder">立即支付 ¥{{order.totalText}}</view>
+    </block>
+    <block wx:elif="{{order.status == 3}}">
+      <view class="btn ghost" bindtap="refresh">刷新状态</view>
+      <view class="btn primary" bindtap="confirmOrder">确认用餐完成</view>
+    </block>
+    <block wx:elif="{{order.status == 4}}">
+      <view wx:if="{{!order.reviewed}}" class="btn primary" bindtap="goReview">评价本次用餐</view>
+      <view wx:else class="btn ghost disabled">已评价，感谢反馈</view>
+    </block>
+    <block wx:else>
+      <view class="btn ghost" bindtap="refresh">刷新状态</view>
+      <view class="btn primary" bindtap="goMenu">继续点餐</view>
+    </block>
+  </view>
+</view>

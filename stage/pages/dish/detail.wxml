@@ -1,0 +1,69 @@
+<view class="page">
+  <scroll-view class="content" scroll-y>
+    <view class="hero">
+      <image class="hero-img" src="{{dish.img}}" mode="aspectFill"></image>
+    </view>
+
+    <view class="card info-card">
+      <view class="name-row">
+        <text class="name">{{dish.name}}</text>
+        <text wx:if="{{dish.categoryName}}" class="tag">{{dish.categoryName}}</text>
+      </view>
+      <view class="desc">{{dish.description || '店家招牌，欢迎品尝'}}</view>
+      <view class="price-row">
+        <view class="price"><text class="yuan">¥</text>{{dish.priceText}}</view>
+        <text wx:if="{{dish.originalText}}" class="origin">¥{{dish.originalText}}</text>
+        <text class="sales">已售 {{dish.sales || 0}} 份</text>
+      </view>
+    </view>
+
+    <view class="card review-card">
+      <view class="section-head">
+        <text class="section-title">食客评价</text>
+        <text class="section-sub">{{reviews.length}} 条</text>
+      </view>
+
+      <block wx:if="{{reviews.length}}">
+        <view wx:for="{{reviews}}" wx:key="id" class="review-item">
+          <view class="review-top">
+            <view class="avatar">{{item.avatarText}}</view>
+            <view class="review-user">
+              <view class="review-name">{{item.nickname}}</view>
+              <view class="review-time">{{item.timeText}}</view>
+            </view>
+            <view class="stars">{{item.stars}}</view>
+          </view>
+          <view class="review-content">{{item.content || '用户未填写评价内容'}}</view>
+          <view wx:if="{{item.imagesList.length}}" class="review-images">
+            <image
+              wx:for="{{item.imagesList}}"
+              wx:for-item="img"
+              wx:key="*this"
+              class="review-img"
+              src="{{img}}"
+              mode="aspectFill"
+            ></image>
+          </view>
+          <view wx:if="{{item.reply}}" class="review-reply">商家回复：{{item.reply}}</view>
+          <view wx:if="{{item.dishNames}}" class="review-dishes">点单：{{item.dishNames}}</view>
+        </view>
+      </block>
+
+      <view wx:else class="empty-state small">
+        <view class="empty-icon">评</view>
+        <text>还没有评价，期待你的分享</text>
+      </view>
+    </view>
+
+    <view class="bottom-gap"></view>
+  </scroll-view>
+
+  <view class="action-bar safe-bottom">
+    <view class="qty-box">
+      <view class="qty-btn" bindtap="minus">−</view>
+      <text class="qty-val">{{qty}}</text>
+      <view class="qty-btn" bindtap="plus">＋</view>
+    </view>
+    <view class="add-btn" bindtap="addToCart">加入购物车 · ¥{{totalText}}</view>
+  </view>
+</view>

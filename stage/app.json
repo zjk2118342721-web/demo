@@ -1,0 +1,46 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/cart/cart",
+    "pages/order/list",
+    "pages/mine/mine",
+    "pages/dish/detail",
+    "pages/order/confirm",
+    "pages/order/detail",
+    "pages/review/review"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#2b1a12",
+    "navigationBarTitleText": "味食香",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#f7f2ec",
+    "backgroundTextStyle": "dark",
+    "enablePullDownRefresh": false
+  },
+  "tabBar": {
+    "color": "#9c8878",
+    "selectedColor": "#ff6b35",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "点餐"
+      },
+      {
+        "pagePath": "pages/cart/cart",
+        "text": "购物车"
+      },
+      {
+        "pagePath": "pages/order/list",
+        "text": "订单"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "text": "我的"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

@@ -1,0 +1,1 @@
+const n={0:{text:"待付款",type:"warning"},1:{text:"待接单",type:"danger"},2:{text:"制作中",type:"primary"},3:{text:"待上菜",type:"success"},4:{text:"已完成",type:"info"},5:{text:"已取消",type:"info"}},o=e=>{var t;return((t=n[e])==null?void 0:t.text)||"未知"},s=e=>{var t;return((t=n[e])==null?void 0:t.type)||"info"},r=e=>Number(e||0).toFixed(2);export{o as a,r as m,s as o};

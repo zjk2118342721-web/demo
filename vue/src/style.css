@@ -1,0 +1,165 @@
+:root {
+  --wsx-primary: #ff6b35;
+  --wsx-primary-dark: #e25422;
+  --wsx-bg: #f6f1ea;
+  --wsx-card: #ffffff;
+  --wsx-text: #2f241d;
+  --wsx-muted: #8b7b6f;
+  --wsx-border: #ece1d5;
+  --el-color-primary: #ff6b35;
+  --el-color-primary-light-3: #ff9269;
+  --el-color-primary-light-5: #ffb798;
+  --el-color-primary-light-7: #ffd9c9;
+  --el-color-primary-light-8: #ffe8de;
+  --el-color-primary-light-9: #fff4ef;
+  --el-color-primary-dark-2: #e25422;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+  background: var(--wsx-bg);
+  color: var(--wsx-text);
+  -webkit-font-smoothing: antialiased;
+}
+
+#app {
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.page-card {
+  background: var(--wsx-card);
+  border-radius: 16px;
+  padding: 20px;
+  border: 1px solid rgba(236, 225, 213, 0.9);
+  box-shadow: 0 10px 30px rgba(88, 55, 22, 0.05);
+}
+
+.page-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.page-title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.page-sub {
+  margin: 5px 0 0;
+  font-size: 13px;
+  color: var(--wsx-muted);
+}
+
+.toolbar {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.table-pagination {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+.el-table {
+  --el-table-header-bg-color: #fcf7f2;
+  --el-table-header-text-color: #6b584c;
+  --el-table-border-color: #f3ebe2;
+  --el-table-row-hover-bg-color: #fffaf6;
+  border-radius: 12px;
+}
+
+.el-table th.el-table__cell {
+  font-weight: 600;
+}
+
+.el-button--primary {
+  background: linear-gradient(135deg, #ff7d4d, #f25c26);
+  border: none;
+  box-shadow: 0 6px 16px rgba(242, 92, 38, 0.22);
+}
+
+.el-button--primary:hover,
+.el-button--primary:focus {
+  background: linear-gradient(135deg, #ff8d62, #f4692f);
+}
+
+.el-dialog {
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.el-dialog__header {
+  padding: 22px 24px 10px;
+}
+
+.el-dialog__body {
+  padding: 8px 24px 16px;
+}
+
+.el-dialog__footer {
+  padding: 12px 24px 20px;
+}
+
+.el-input__wrapper,
+.el-select__wrapper {
+  border-radius: 9px;
+}
+
+.el-tag {
+  border-radius: 8px;
+}
+
+.el-card {
+  border-radius: 16px;
+  border-color: var(--wsx-border);
+}
+
+.el-message-box {
+  border-radius: 14px;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d9c8b8;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+@media (max-width: 900px) {
+  .page-card {
+    padding: 14px;
+    border-radius: 12px;
+  }
+}

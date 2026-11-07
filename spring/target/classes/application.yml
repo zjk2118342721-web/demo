@@ -1,0 +1,38 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: weishixiang-server
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/weishixiang?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: "1234"
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+  jackson:
+    time-zone: Asia/Shanghai
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+  global-config:
+    banner: false
+    db-config:
+      id-type: auto
+
+app:
+  jwt:
+    secret: weishixiang-ordering-system-jwt-secret-key-2026-secure
+    # 小程序顾客 token 有效期（秒），7 天
+    expire: 604800
+    # 后台管理员 token 有效期（秒），1 天
+    admin-expire: 86400
+  upload-dir: ./uploads
+  wx:
+    # 留空时使用本地模拟登录，便于开发调试；填写后可对接真实微信登录
+    appid: ""
+    secret: ""

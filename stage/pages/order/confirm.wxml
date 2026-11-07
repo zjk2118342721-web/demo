@@ -1,0 +1,73 @@
+<view class="page">
+  <scroll-view class="content" scroll-y>
+    <view class="card">
+      <view class="section-head">
+        <text class="section-title">就餐信息</text>
+        <text class="section-sub">请选择当前桌号</text>
+      </view>
+
+      <scroll-view class="table-scroll" scroll-x>
+        <view class="table-list">
+          <view
+            wx:for="{{tables}}"
+            wx:key="id"
+            class="table-chip {{selectedTable == item.tableNo ? 'active' : ''}} {{item.status == 1 ? 'busy' : ''}}"
+            data-no="{{item.tableNo}}"
+            data-status="{{item.status}}"
+            bindtap="selectTable"
+          >
+            <text class="table-no">{{item.tableNo}}</text>
+            <text class="table-seats">{{item.status == 1 ? '使用中' : item.seats + '人桌'}}</text>
+          </view>
+        </view>
+      </scroll-view>
+
+      <view class="field-label">备注</view>
+      <textarea
+        class="remark"
+        value="{{remark}}"
+        placeholder="口味偏好、忌口、餐具需求等（选填）"
+        placeholder-class="remark-placeholder"
+        maxlength="100"
+        bindinput="onRemark"
+      ></textarea>
+      <view class="remark-count">{{remark.length}}/100</view>
+    </view>
+
+    <view class="card">
+      <view class="section-head">
+        <text class="section-title">菜品清单</text>
+        <text class="section-sub">共 {{totalQty}} 件</text>
+      </view>
+
+      <view wx:for="{{items}}" wx:key="dishId" class="dish-row">
+        <image class="dish-img" src="{{item.img}}" mode="aspectFill"></image>
+        <view class="dish-info">
+          <view class="dish-name">{{item.dishName}}</view>
+          <view class="dish-qty">×{{item.quantity}}</view>
+        </view>
+        <text class="dish-sub">¥{{item.subtotal}}</text>
+      </view>
+
+      <view class="total-row">
+        <text class="total-label">合计</text>
+        <text class="total-value">¥{{totalText}}</text>
+      </view>
+    </view>
+
+    <view class="tip">
+      温馨提示：下单后请在 15 分钟内完成支付，菜品将以现场制作时间为准陆续上桌。
+    </view>
+    <view class="bottom-gap"></view>
+  </scroll-view>
+
+  <view class="submit-bar safe-bottom">
+    <view class="submit-left">
+      <view class="submit-label">应付金额</view>
+      <view class="submit-total"><text class="yuan">¥</text>{{totalText}}</view>
+    </view>
+    <view class="submit-btn {{submitting ? 'loading' : ''}}" bindtap="submit">
+      {{submitting ? '提交中...' : '提交订单'}}
+    </view>
+  </view>
+</view>

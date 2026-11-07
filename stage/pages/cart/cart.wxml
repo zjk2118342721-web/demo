@@ -1,0 +1,45 @@
+<view class="page">
+  <view class="top-bar">
+    <view class="title-row">
+      <text class="title">我的购物车</text>
+      <text wx:if="{{items.length}}" class="count-tip">共 {{totalQty}} 件</text>
+    </view>
+    <text wx:if="{{items.length}}" class="clear-btn" bindtap="clearAll">清空</text>
+  </view>
+
+  <scroll-view class="list" scroll-y>
+    <block wx:if="{{items.length}}">
+      <view wx:for="{{items}}" wx:key="dishId" class="cart-item">
+        <image class="item-img" src="{{item.img}}" mode="aspectFill"></image>
+        <view class="item-info">
+          <view class="item-name">{{item.dishName}}</view>
+          <view class="item-price">¥{{item.priceText}}</view>
+          <view class="item-row">
+            <view class="qty-ctrl">
+              <view class="qty-btn" data-id="{{item.dishId}}" catchtap="minus">−</view>
+              <text class="qty-num">{{item.quantity}}</text>
+              <view class="qty-btn plus" data-id="{{item.dishId}}" catchtap="plus">＋</view>
+            </view>
+            <text class="item-sub">¥{{item.subtotal}}</text>
+          </view>
+        </view>
+        <view class="remove" data-id="{{item.dishId}}" catchtap="removeItem">删除</view>
+      </view>
+      <view class="list-bottom-gap"></view>
+    </block>
+
+    <view wx:else class="empty-state">
+      <view class="empty-icon">车</view>
+      <text>购物车还是空的</text>
+      <view class="empty-btn" bindtap="goMenu">去点餐</view>
+    </view>
+  </scroll-view>
+
+  <view class="summary">
+    <view class="summary-left">
+      <view class="total-label">合计</view>
+      <view class="total"><text class="yuan">¥</text>{{totalText}}</view>
+    </view>
+    <view class="checkout {{items.length ? '' : 'disabled'}}" bindtap="checkout">去下单</view>
+  </view>
+</view>

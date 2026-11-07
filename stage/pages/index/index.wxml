@@ -1,0 +1,105 @@
+<view class="page">
+  <view class="header">
+    <view class="brand-row">
+      <view class="brand">
+        <view class="brand-logo">味</view>
+        <view class="brand-text">
+          <view class="brand-name">味食香</view>
+          <view class="brand-slogan">家常好味 · 现点现做</view>
+        </view>
+      </view>
+      <view class="table-tip">{{tableNo ? '桌号 ' + tableNo : '堂食点餐'}}</view>
+    </view>
+
+    <view class="banner">
+      <image class="banner-img" src="{{banner}}" mode="aspectFill"></image>
+      <view class="banner-mask">
+        <view class="banner-title">用心做好每一道菜</view>
+        <view class="banner-sub">新鲜食材 · 明厨亮灶 · 快速上菜</view>
+      </view>
+    </view>
+
+    <view class="search-box">
+      <text class="search-icon">搜</text>
+      <input
+        class="search-input"
+        value="{{keyword}}"
+        placeholder="搜索菜品，如：小炒肉"
+        placeholder-class="search-placeholder"
+        confirm-type="search"
+        bindinput="onSearchInput"
+        bindconfirm="onSearchConfirm"
+      />
+      <text wx:if="{{keyword}}" class="search-clear" catchtap="clearSearch">✕</text>
+    </view>
+  </view>
+
+  <view class="body">
+    <scroll-view class="cat-scroll" scroll-y>
+      <view
+        wx:for="{{categories}}"
+        wx:key="id"
+        class="cat-item {{activeCategory == item.id ? 'active' : ''}}"
+        data-id="{{item.id}}"
+        bindtap="onCategoryTap"
+      >
+        <text class="cat-name">{{item.name}}</text>
+      </view>
+    </scroll-view>
+
+    <scroll-view class="dish-scroll" scroll-y>
+      <view wx:if="{{loading && !dishes.length}}" class="loading-tip">正在加载菜品...</view>
+
+      <block wx:if="{{dishes.length}}">
+        <view
+          wx:for="{{dishes}}"
+          wx:key="id"
+          class="dish-card"
+          data-id="{{item.id}}"
+          bindtap="goDetail"
+        >
+          <image class="dish-img" src="{{item.img}}" mode="aspectFill"></image>
+          <view class="dish-info">
+            <view class="dish-name">{{item.name}}</view>
+            <view class="dish-desc">{{item.description}}</view>
+            <view class="dish-meta">
+              <text class="dish-sales">已售 {{item.sales}}</text>
+              <text wx:if="{{item.originalText}}" class="dish-origin">¥{{item.originalText}}</text>
+            </view>
+            <view class="dish-bottom">
+              <view class="price"><text class="yuan">¥</text>{{item.priceText}}</view>
+              <view class="qty-ctrl" catchtap="noop">
+                <block wx:if="{{item.qty > 0}}">
+                  <view class="qty-btn minus" data-id="{{item.id}}" catchtap="minusDish">−</view>
+                  <text class="qty-num">{{item.qty}}</text>
+                </block>
+                <view class="qty-btn plus" data-id="{{item.id}}" catchtap="addDish">＋</view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </block>
+
+      <view wx:elif="{{!loading}}" class="empty-state">
+        <view class="empty-icon">菜</view>
+        <text>没有找到相关菜品</text>
+      </view>
+
+      <view class="list-bottom-gap"></view>
+    </scroll-view>
+  </view>
+
+  <view wx:if="{{cartCount > 0}}" class="cart-bar">
+    <view class="cart-bar-left" bindtap="goCart">
+      <view class="cart-icon">
+        <text class="cart-icon-text">车</text>
+        <text class="cart-count">{{cartCount}}</text>
+      </view>
+      <view class="cart-info">
+        <view class="cart-total">¥{{cartTotalText}}</view>
+        <view class="cart-hint">已选 {{cartCount}} 件</view>
+      </view>
+    </view>
+    <view class="cart-go" bindtap="goCart">去购物车</view>
+  </view>
+</view>

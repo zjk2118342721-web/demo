@@ -1,0 +1,55 @@
+<view class="page">
+  <scroll-view class="content" scroll-y>
+    <view class="card order-card">
+      <view class="order-head">
+        <text class="order-no">{{orderNo}}</text>
+        <text class="order-amount">¥{{totalText}}</text>
+      </view>
+      <view class="order-dishes">{{dishNames}}</view>
+      <view class="order-table">桌号 {{tableNo || '未选桌'}}</view>
+    </view>
+
+    <view class="card rating-card">
+      <view class="rating-title">本次用餐体验如何？</view>
+      <view class="star-row">
+        <view
+          wx:for="{{starList}}"
+          wx:key="*this"
+          class="star {{item <= rating ? 'active' : ''}}"
+          data-value="{{item}}"
+          bindtap="onStarTap"
+        >★</view>
+      </view>
+      <view class="rating-label">{{ratingLabel}}</view>
+    </view>
+
+    <view class="card">
+      <textarea
+        class="review-input"
+        value="{{content}}"
+        placeholder="说说菜品口味、上菜速度和服务感受，帮助更多食客~"
+        placeholder-class="review-placeholder"
+        maxlength="200"
+        bindinput="onContentInput"
+      ></textarea>
+      <view class="input-count">{{content.length}}/200</view>
+    </view>
+
+    <view class="card switch-card">
+      <view class="switch-info">
+        <view class="switch-title">匿名评价</view>
+        <view class="switch-sub">开启后将隐藏你的昵称与头像</view>
+      </view>
+      <switch checked="{{anonymous}}" color="#ef5a24" bindchange="onAnonymousChange" />
+    </view>
+
+    <view class="tip">评价提交后不可修改，餐厅可能会对你的评价进行回复。</view>
+    <view class="bottom-gap"></view>
+  </scroll-view>
+
+  <view class="submit-bar safe-bottom">
+    <view class="submit-btn {{submitting ? 'loading' : ''}}" bindtap="submit">
+      {{submitting ? '提交中...' : '提交评价'}}
+    </view>
+  </view>
+</view>

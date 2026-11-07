@@ -1,0 +1,72 @@
+<view class="page">
+  <scroll-view class="tab-scroll" scroll-x>
+    <view class="tab-list">
+      <view
+        wx:for="{{tabs}}"
+        wx:key="value"
+        class="tab-item {{activeTab == item.value ? 'active' : ''}}"
+        data-value="{{item.value}}"
+        bindtap="switchTab"
+      >
+        {{item.label}}
+      </view>
+    </view>
+  </scroll-view>
+
+  <scroll-view class="order-scroll" scroll-y>
+    <block wx:if="{{orders.length}}">
+      <view
+        wx:for="{{orders}}"
+        wx:key="id"
+        class="order-card"
+        data-id="{{item.id}}"
+        bindtap="goDetail"
+      >
+        <view class="order-head">
+          <text class="order-no">{{item.orderNo}}</text>
+          <text class="status-tag {{item.statusClass}}">{{item.statusText}}</text>
+        </view>
+
+        <view class="order-body">
+          <view class="order-main">
+            <view class="order-preview">{{item.preview}}</view>
+            <view class="order-meta">
+              <text>桌号 {{item.tableNo || '未选桌'}}</text>
+              <text class="dot">·</text>
+              <text>{{item.totalQty}} 件</text>
+              <text class="dot">·</text>
+              <text>{{item.timeText}}</text>
+            </view>
+          </view>
+          <view class="order-amount">
+            <text class="yuan">¥</text>{{item.totalText}}
+          </view>
+        </view>
+
+        <view class="order-footer">
+          <text class="footer-hint">点击查看订单详情 ›</text>
+          <view class="order-actions">
+            <block wx:if="{{item.status == 0}}">
+              <view class="btn ghost" data-id="{{item.id}}" catchtap="cancelOrder">取消订单</view>
+              <view class="btn primary" data-id="{{item.id}}" catchtap="payOrder">去支付</view>
+            </block>
+            <block wx:elif="{{item.status == 3}}">
+              <view class="btn primary" data-id="{{item.id}}" catchtap="confirmOrder">确认完成</view>
+            </block>
+            <block wx:elif="{{item.status == 4}}">
+              <view wx:if="{{!item.reviewed}}" class="btn primary" data-id="{{item.id}}" catchtap="goReview">去评价</view>
+              <view wx:else class="btn ghost disabled">已评价</view>
+            </block>
+          </view>
+        </view>
+      </view>
+      <view class="list-bottom-gap"></view>
+    </block>
+
+    <view wx:else class="empty-state">
+      <view class="empty-icon">单</view>
+      <text>暂无相关订单</text>
+      <view class="empty-btn" bindtap="goMenu">去点餐</view>
+    </view>
+  </scroll-view>
+</view>
